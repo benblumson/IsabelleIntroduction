@@ -17,15 +17,16 @@
 %
 \begin{isamarkuptext}%
 \epigraph{It is unworthy of excellent men to lose hours like slaves in the labour of calculation which could 
-safely be relegated to anyone else if machines were used.}{Liebniz}%
+safely be relegated to anyone else if machines were used.}{Liebniz \cite{smith_source_1959} p. 181.}%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
 This is an introduction to the Isabelle proof assistant aimed at philosophers and students
 of philosophy.\footnote{I found a very useful introduction to be Nipkow \cite{nipkow_tutorial_2011}.
-A person wishing to know more about how Isabelle works might first consult Paulson \cite{paulson_ml_1996}.
+Another still helpful, though unfortunately dated, introduction is Grechuk \cite{grechuk_isabelle_2010}.
+A person wishing to know how Isabelle works might first consult Paulson \cite{paulson_ml_1996}.
 For the software itself and comprehensive documentation, see \url{https://isabelle.in.tum.de/}.
-Isabelle might not be the right too for your project -- for a comparison of alternatives see
+Isabelle might not be the right tool for your project -- for a comparison of alternatives see
 Wiedijk \cite{wiedijk_seventeen_2006}.}%
 \end{isamarkuptext}\isamarkuptrue%
 %
@@ -579,7 +580,8 @@ attention on the steps that matter most.%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
-\begin{Exercise} Practice biconditional elimination and introduction by proving: \end{Exercise}%
+\begin{Exercise}[label = biconditional] 
+Practice biconditional elimination and introduction by proving: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongleftrightarrow}\ B{\isacharparenright}\ {\isasymlongleftrightarrow}\ {\isacharparenleft}B\ {\isasymlongleftrightarrow}\ A{\isacharparenright}{\isachardoublequoteclose}%
@@ -1233,7 +1235,7 @@ Prove the associativity of disjunction: \end{Exercise}%
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-\begin{Exercise}\label{disjEexercises} Practice disjunction elimination and introduction by proving: \end{Exercise}%
+\begin{Exercise}[label = disjEexercises] Practice disjunction elimination and introduction by proving: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}A\ {\isasymor}\ B\ {\isasymand}\ C\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymor}\ B{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}A\ {\isasymor}\ C{\isacharparenright}{\isachardoublequoteclose}%
@@ -1330,7 +1332,7 @@ This is worth remembering, since otherwise the negative paradox is often a sourc
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
-\begin{Exercise} Prove that a contradiction entails anything: \end{Exercise}%
+\begin{Exercise}[label = explosion] Prove that a contradiction entails anything: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ explosion{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymand}\ {\isasymnot}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}%
@@ -1428,7 +1430,8 @@ the command \isa{ultimately}.%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
-\begin{Exercise} Practice negation introduction by proving: \end{Exercise}%
+\begin{Exercise}[label = doublenegationintroduction] 
+Practice negation introduction by proving: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ {\isasymnot}\ {\isasymnot}\ A{\isachardoublequoteclose}%
@@ -1768,6 +1771,12 @@ the equivalence thesis but rejects fatalism, object?%
 }
 \isamarkuptrue%
 %
+\begin{isamarkuptext}%
+Just as the natural deduction system for propositional logic has an introduction and elimination 
+rule for each connective, the natural deduction system for first-order predicate logic has introduction and elimination
+rules for each quantifier, and for identity.%
+\end{isamarkuptext}\isamarkuptrue%
+%
 \isamarkupsubsection{Universal Quantification%
 }
 \isamarkuptrue%
@@ -1839,7 +1848,7 @@ letter or character, and so you don't have to worry about running out).%
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-\begin{Exercise}[title = The Riddle of Dracula]
+\begin{Exercise}[title = The Riddle of Dracula, label = dracula]
 Prove that if everyone is afraid of Dracula, then if Dracula is afraid only of me, then I am Dracula: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
@@ -2032,7 +2041,7 @@ then apply existential introduction afterwards -- now to an old name.%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
-\begin{Exercise}[title = The Converse Drinkers Principle]
+\begin{Exercise}[title = The Converse Drinkers Principle, label = conversedrinker]
 Prove that there is someone such that if anyone drinks, then they do: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
@@ -2057,7 +2066,7 @@ from Smullyan \cite{smullyan_what_1978} p. 210-1. It is the converse of exercise
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
-\begin{Exercise} Prove that if not everything is \isa{F}, something is not \isa{F}: \end{Exercise}%
+\begin{Exercise}[label = demorgan] Prove that if not everything is \isa{F}, something is not \isa{F}: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ not{\isacharunderscore}all{\isacharunderscore}implies{\isacharunderscore}some{\isacharunderscore}not{\isacharcolon}\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}%
@@ -2183,7 +2192,7 @@ not the same as the ``old'' name you had in your goal (try it and you'll see wha
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-\begin{Exercise}[title = {The Drinker Principle}]\label{drinker} 
+\begin{Exercise}[title = {The Drinker Principle}, label = drinker] 
 Prove that there is someone such that if they drink, then everybody drinks: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
@@ -2269,7 +2278,7 @@ identical to itself. For example, we can prove that everything is self-identical
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-\begin{Exercise} Prove that everything is identical to something: \end{Exercise}%
+\begin{Exercise}[label = everythingissomething] Prove that everything is identical to something: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ {\isasymexists}\ y{\isachardot}\ x\ {\isacharequal}\ y{\isachardoublequoteclose}%
@@ -2370,7 +2379,7 @@ The difference is subtle -- just one extra `s' at the beginning of the rule.%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
-\begin{Exercise} Prove the symmetry of identity: \end{Exercise}%
+\begin{Exercise}[label = symmetry] Prove the symmetry of identity: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}a\ {\isacharequal}\ b\ {\isasymlongrightarrow}\ b\ {\isacharequal}\ a{\isachardoublequoteclose}%

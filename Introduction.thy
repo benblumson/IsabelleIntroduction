@@ -5,11 +5,12 @@ begin
 (*>*)
 
 text {* \epigraph{It is unworthy of excellent men to lose hours like slaves in the labour of calculation which could 
-safely be relegated to anyone else if machines were used.}{Liebniz} *}
+safely be relegated to anyone else if machines were used.}{Liebniz @{cite "smith_source_1959"} p. 181.} *}
 
 text {* This is an introduction to the Isabelle proof assistant aimed at philosophers and students
 of philosophy.\footnote{I found a very useful introduction to be Nipkow @{cite "nipkow_tutorial_2011"}.
-A person wishing to know more about how Isabelle works might first consult Paulson @{cite "paulson_ml_1996"}.
+Another still helpful, though unfortunately dated, introduction is Grechuk @{cite "grechuk_isabelle_2010"}.
+A person wishing to know how Isabelle works might first consult Paulson @{cite "paulson_ml_1996"}.
 For the software itself and comprehensive documentation, see @{url "https://isabelle.in.tum.de/"}.
 Isabelle might not be the right tool for your project -- for a comparison of alternatives see
 Wiedijk @{cite "wiedijk_seventeen_2006"}.} *}
@@ -268,31 +269,10 @@ open a new subproof without specifying a rule, Isabelle will default to using th
 for the main connective of what you are trying to prove. This helps to keep proofs tidy, and focus
 attention on the steps that matter most. *}
 
-text {* \begin{Exercise} Practice biconditional elimination and introduction by proving: \end{Exercise} *}
+text {* \begin{Exercise}[label = biconditional] 
+Practice biconditional elimination and introduction by proving: \end{Exercise} *}
 
 lemma "(A \<longleftrightarrow> B) \<longleftrightarrow> (B \<longleftrightarrow> A)" oops
-
-(* proof (rule iffI)
-  assume left: "A \<longleftrightarrow> B"
-  show "B \<longleftrightarrow> A"
-  proof (rule iffI)
-    assume "B"
-    with left show "A" by (rule iffD2)
-  next
-    assume "A"
-    with left show "B" by (rule iffD1)
-  qed
-next
-  assume right: "B \<longleftrightarrow> A"
-  show "A \<longleftrightarrow> B"
-  proof
-    assume "A"
-    with right show "B" by (rule iffD2)
-  next
-    assume "B"
-    with right show "A" by (rule iffD1)
-  qed
-qed *)
 
 subsection {* Conjunction *}
 
@@ -522,32 +502,10 @@ Prove the associativity of disjunction: \end{Exercise} *}
 
 lemma "A \<or> B \<or> C \<longleftrightarrow> (A \<or> B) \<or> C" oops
 
-text {* \begin{Exercise}\label{disjEexercises} Practice disjunction elimination and introduction by proving: \end{Exercise} *}
+text {* \begin{Exercise}[label = disjEexercises] Practice disjunction elimination and introduction by proving: \end{Exercise} *}
 
 lemma "A \<or> B \<and> C \<longrightarrow> (A \<or> B) \<and> (A \<or> C)" oops
-(*
-proof
-  assume "A \<or> B \<and> C"
-  thus "(A \<or> B) \<and> (A \<or> C)"
-  proof (rule disjE)
-    assume "A"
-    show "(A \<or> B) \<and> (A \<or> C)"
-    proof
-      show "A \<or> B" using `A`..
-      show "A \<or> C" using `A`..
-    qed
-  next
-    assume "B \<and> C"
-    show "(A \<or> B) \<and> (A \<or> C)"
-    proof
-      from `B \<and> C` have "B"..
-      thus "A \<or> B"..
-      from `B \<and> C` have "C"..
-      thus "A \<or> C"..
-    qed
-  qed
-qed
-*)
+
 text {* Can you prove the converse from the rules covered so far? Why or why not? *}
 
 subsection {* Negation *}
@@ -588,16 +546,9 @@ relevant logicians (even though there is no unused assumption here).\footnote{Se
 @{cite "anderson_entailment_1976"} pp. 163-7.}
 This is worth remembering, since otherwise the negative paradox is often a source of surprise. *}
 
-text {* \begin{Exercise} Prove that a contradiction entails anything: \end{Exercise} *}
+text {* \begin{Exercise}[label = explosion] Prove that a contradiction entails anything: \end{Exercise} *}
 
 lemma explosion: "A \<and> \<not> A \<longrightarrow> B" oops
-(*
-proof
-  assume "A \<and> \<not> A"
-  hence "\<not> A"..
-  from `A \<and> \<not> A` have "A"..
-  with `\<not> A` show "B" by (rule notE)
-qed *)
 
 text {* \begin{Exercise} Suppose the butler did it or the gardener did it. Then prove that if the butler didn't do it, 
 the gardener did: \end{Exercise} *}
@@ -629,18 +580,10 @@ text {* Second, @{term "False"} was shown from two facts -- @{term "\<not> A"} a
 having to refer back to the first of these by name, we used the command @{text "moreover"} followed by
 the command @{text "ultimately"}.  *}
 
-text {* \begin{Exercise} Practice negation introduction by proving: \end{Exercise} *}
+text {* \begin{Exercise}[label = doublenegationintroduction] 
+Practice negation introduction by proving: \end{Exercise} *}
 
 lemma "A \<longrightarrow> \<not> \<not> A" oops
-
-(*proof
-  assume "A"
-  show "\<not> \<not> A"
-  proof
-    assume "\<not> A"
-    thus "False" using `A`..
-  qed
-qed *)
 
 text {* \begin{Exercise}\label{doubleexcludedmiddle} The next example is challenging, but instructive. Prove: \end{Exercise} *}
 
@@ -753,28 +696,9 @@ the equivalence thesis but rejects fatalism, object? *}
 
 section {* Predicate Logic *}
 
-(*
-text {* Imagination you need to convince a fool of the existence of God. Then you might argue as follows:
-\begin{quotation}
-... something than which nothing greater can be conceived exists, if only in the understanding ...
-And surely that than which a greater cannot be conceived exists cannot exist \emph{just} in the
-understanding. If it were to exist \emph{just} in the understanding, we could conceive it to exist
-in reality too, in which case it would be greater. Therefore, if that than which a greater cannot be
-conceived exists just in the understanding, the very thing than which a greater cannot be conceived 
-is something than which a greater \emph{can} be conceived. But surely this cannot be. Without doubt,
-then, something than which a greater can't be conceived does exist -- both in the understanding and
-in reality.
-\end{quotation} 
-The example is notable for two reasons. *}
-
-text {* First, ...  *}
-
-text {* Second, and more importantly for our purposes, the argument is an example of the style emulated
-by the natural deduction rules for predicate logic. In this system, each quantifier, like each connective
-in propositional logic, is associated with an introduction rule and and elimination rule. In the next
-two subsections, we will consider in turn the rules for the universal and existential quantifiers. Following
-that, we will consider additional rules governing identity, and definite descriptions. *}
-*)
+text {* Just as the natural deduction system for propositional logic has an introduction and elimination 
+rule for each connective, the natural deduction system for first-order predicate logic has introduction and elimination
+rules for each quantifier, and for identity. *}
 
 subsection {* Universal Quantification  *}
 
@@ -804,20 +728,10 @@ text {* \begin{Exercise} Practice universal elimination by proving: \end{Exercis
 
 lemma "(\<forall> x. F x) \<longrightarrow> F a \<and> F b" oops
 
-text {* \begin{Exercise}[title = The Riddle of Dracula]
+text {* \begin{Exercise}[title = The Riddle of Dracula, label = dracula]
 Prove that if everyone is afraid of Dracula, then if Dracula is afraid only of me, then I am Dracula: \end{Exercise} *}
 
 lemma "(\<forall> x. R x d) \<longrightarrow> (\<forall> z. R d z \<longrightarrow> z = m) \<longrightarrow> d = m" oops
-(* proof
-  assume "\<forall> x. R x d"
-  hence "R d d"..
-  show "(\<forall> z. R d z \<longrightarrow> z = m) \<longrightarrow> d = m"
-  proof
-    assume "\<forall> z. R d z \<longrightarrow> z = m"
-    hence "R d d \<longrightarrow> d = m"..
-    thus "d = m" using `R d d`..
-  qed
-qed *)
 
 text {* Why is this lemma surprising?\footnote{This example is from Richard Cartwright, reported by
 Smullyan @{cite "smullyan_what_1978"} p. 212.}  *}
@@ -883,50 +797,17 @@ she would expect you to show @{term "\<not> F a \<or> F a"} for some \emph{old} 
 have any old name, and so you'd be stuck. Instead, you have to prove @{term "\<not> F a \<or> F a"} first, and
 then apply existential introduction afterwards -- now to an old name. *}
 
-text {* \begin{Exercise}[title = The Converse Drinkers Principle]
+text {* \begin{Exercise}[title = The Converse Drinkers Principle, label = conversedrinker]
 Prove that there is someone such that if anyone drinks, then they do: \end{Exercise} *}
 
 lemma "\<exists> x. (\<exists> y. F y) \<longrightarrow> F x" oops
-(*
-proof cases
-  assume "\<exists> x. F x"
-  then obtain x where x: "F x"..
-  hence "(\<exists> y. F y) \<longrightarrow> F x"..
-  thus "\<exists> x. (\<exists> y. F y) \<longrightarrow> F x"..
-next
-  assume "\<not> (\<exists> x. F x)"
-  have "(\<exists> y. F y) \<longrightarrow> F x"
-  proof
-    assume "\<exists> y. F y"
-    with `\<not> (\<exists> x. F x)` show "F x"..
-  qed
-  thus "\<exists> x. (\<exists> y. F y) \<longrightarrow> F x"..
-qed *)
 
 text {* How is this proof related to the paradoxes of material implication?\footnote{This problem is
 from Smullyan @{cite "smullyan_what_1978"} p. 210-1. It is the converse of exercise \ref{drinker}.}  *}
 
-text {* \begin{Exercise} Prove that if not everything is @{term "F"}, something is not @{term "F"}: \end{Exercise} *}
+text {* \begin{Exercise}[label = demorgan] Prove that if not everything is @{term "F"}, something is not @{term "F"}: \end{Exercise} *}
 
 lemma not_all_implies_some_not: "\<not> (\<forall> x. F x) \<longrightarrow> (\<exists> x. \<not> F x)" oops
-(* proof
-  assume "\<not> (\<forall> x. F x)"
-  show "(\<exists> x. \<not> F x)"
-  proof (rule ccontr)
-    assume "\<not> (\<exists> x. \<not> F x)"
-    have "\<forall> x. F x"
-    proof (rule allI)
-      fix a
-      show "F a"
-      proof (rule ccontr)
-        assume "\<not> F a"
-        hence "\<exists> x. \<not> F x" by (rule exI)
-        with `\<not> (\<exists> x. \<not> F x)` show "False"..
-      qed
-    qed
-    with `\<not> (\<forall> x. F x)` show "False"..
-  qed
-qed *)
 
 text {* Would an intuitionist accept this proof? *}
 
@@ -960,22 +841,10 @@ text {* \begin{Exercise} Practice existential introduction and elimination by pr
 
 lemma "(\<exists> x. F x) \<longrightarrow> (\<exists> x. F x \<or> G x)" oops
 
-text {* \begin{Exercise}[title = {The Drinker Principle}]\label{drinker} 
+text {* \begin{Exercise}[title = {The Drinker Principle}, label = drinker] 
 Prove that there is someone such that if they drink, then everybody drinks: \end{Exercise} *}
 
 lemma "\<exists> x. F x \<longrightarrow> (\<forall> x. F x)" oops
-(*
-proof cases
-  assume "\<forall> x. F x"
-  with positive_paradox have "F a \<longrightarrow> (\<forall> x. F x)"..
-  thus "\<exists> x. F x \<longrightarrow> (\<forall> x. F x)" by (rule exI)
-next
-  assume "\<not> (\<forall> x. F x)"
-  with not_all_implies_some_not have "\<exists> x. \<not> F x"..
-  then obtain a where "\<not> F a" by (rule exE)
-  with negative_paradox have "F a \<longrightarrow> (\<forall> x. F x)"..
-  thus "\<exists> x. F x \<longrightarrow> (\<forall> x. F x)"..
-qed *)
 
 text {* How is this theorem related to the paradoxes of material implication?\footnote{This problem
 is from Smullyan @{cite "smullyan_what_1978"}, pp. 209-11. It's a common example in automated theorem
@@ -1001,15 +870,9 @@ text {* \begin{Exercise} Practice the reflexivity rule by proving: \end{Exercise
 
 lemma "F a \<longrightarrow> a = a" oops
 
-text {* \begin{Exercise} Prove that everything is identical to something: \end{Exercise} *}
+text {* \begin{Exercise}[label = everythingissomething] Prove that everything is identical to something: \end{Exercise} *}
 
 lemma "\<forall> x. \<exists> y. x = y" oops
-(*
-proof
-  fix x
-  have "x = x" by (rule refl)
-  thus "\<exists> y. x = y"..
-qed *)
 
 subsubsection {* Substitution *}
 
@@ -1041,16 +904,9 @@ qed
 
 text {* The difference is subtle -- just one extra `s' at the beginning of the rule.  *}
 
-text {* \begin{Exercise} Prove the symmetry of identity: \end{Exercise} *}
+text {* \begin{Exercise}[label = symmetry] Prove the symmetry of identity: \end{Exercise} *}
 
 lemma "a = b \<longrightarrow> b = a" oops
-(*
-proof
-  assume "a = b"
-  have "a = a"..
-  with `a = b` show "b = a" by (rule subst)
-qed
-*)
 
 text {* \begin{Exercise} Prove the transitivity of identity: \end{Exercise}  *}
 

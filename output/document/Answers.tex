@@ -1,0 +1,521 @@
+%
+\begin{isabellebody}%
+\setisabellecontext{Answers}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isatagtheory
+%
+\endisatagtheory
+{\isafoldtheory}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isamarkupsection{Answers%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = biconditional] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongleftrightarrow}\ B{\isacharparenright}\ {\isasymlongleftrightarrow}\ {\isacharparenleft}B\ {\isasymlongleftrightarrow}\ A{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ iffI{\isacharparenright}\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ left{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymlongleftrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymlongleftrightarrow}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ iffI{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ left\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ iffD{\isadigit{2}}{\isacharparenright}\isanewline
+\ \ \isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ left\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ iffD{\isadigit{1}}{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ right{\isacharcolon}\ {\isachardoublequoteopen}B\ {\isasymlongleftrightarrow}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongleftrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ right\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ iffD{\isadigit{2}}{\isacharparenright}\isanewline
+\ \ \isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ right\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ iffD{\isadigit{1}}{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = disjEexercises] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ B\ {\isasymand}\ C\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymor}\ B{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}A\ {\isasymor}\ C{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ B\ {\isasymand}\ C{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymor}\ B{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}A\ {\isasymor}\ C{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ disjE{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymor}\ B{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}A\ {\isasymor}\ C{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ B{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}A{\isacharbackquoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \ \ \ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ C{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}A{\isacharbackquoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymand}\ C{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymor}\ B{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}A\ {\isasymor}\ C{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \ \ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}B\ {\isasymand}\ C{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ B{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \ \ \ \ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}B\ {\isasymand}\ C{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = explosion] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ explosion{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymand}\ {\isasymnot}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ {\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ A{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymand}\ {\isasymnot}\ A{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}{\isasymnot}\ A{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ notE{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = doublenegationintroduction] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ {\isasymnot}\ {\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ {\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}False{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}A{\isacharbackquoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = dracula] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ R\ x\ d{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ z{\isachardot}\ R\ d\ z\ {\isasymlongrightarrow}\ z\ {\isacharequal}\ m{\isacharparenright}\ {\isasymlongrightarrow}\ d\ {\isacharequal}\ m{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ R\ x\ d{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}R\ d\ d{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ allE{\isacharparenright}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ z{\isachardot}\ R\ d\ z\ {\isasymlongrightarrow}\ z\ {\isacharequal}\ m{\isacharparenright}\ {\isasymlongrightarrow}\ d\ {\isacharequal}\ m{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ z{\isachardot}\ R\ d\ z\ {\isasymlongrightarrow}\ z\ {\isacharequal}\ m{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}R\ d\ d\ {\isasymlongrightarrow}\ d\ {\isacharequal}\ m{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ allE{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}d\ {\isacharequal}\ m{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}R\ d\ d{\isacharbackquoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = conversedrinker] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ {\isacharparenleft}{\isasymexists}\ y{\isachardot}\ F\ y{\isacharparenright}\ {\isasymlongrightarrow}\ F\ x{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ cases\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ F\ x{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{obtain}\isamarkupfalse%
+\ x\ \isakeyword{where}\ x{\isacharcolon}\ {\isachardoublequoteopen}F\ x{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}\ y{\isachardot}\ F\ y{\isacharparenright}\ {\isasymlongrightarrow}\ F\ x{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ {\isacharparenleft}{\isasymexists}\ y{\isachardot}\ F\ y{\isacharparenright}\ {\isasymlongrightarrow}\ F\ x{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}\ y{\isachardot}\ F\ y{\isacharparenright}\ {\isasymlongrightarrow}\ F\ x{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ y{\isachardot}\ F\ y{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x{\isacharparenright}{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ x{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ {\isacharparenleft}{\isasymexists}\ y{\isachardot}\ F\ y{\isacharparenright}\ {\isasymlongrightarrow}\ F\ x{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = demorgan] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ not{\isacharunderscore}all{\isacharunderscore}implies{\isacharunderscore}some{\isacharunderscore}not{\isacharcolon}\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ ccontr{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ F\ x{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ allI{\isacharparenright}\isanewline
+\ \ \ \ \ \ \isacommand{fix}\isamarkupfalse%
+\ a\isanewline
+\ \ \ \ \ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a{\isachardoublequoteclose}\isanewline
+\ \ \ \ \ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ ccontr{\isacharparenright}\isanewline
+\ \ \ \ \ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ F\ a{\isachardoublequoteclose}\isanewline
+\ \ \ \ \ \ \ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ exI{\isacharparenright}\isanewline
+\ \ \ \ \ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x{\isacharparenright}{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}False{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \ \ \ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}False{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = drinker] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ F\ x\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ cases\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ F\ x{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ F\ x\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ exI{\isacharparenright}\isanewline
+\isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{with}\isamarkupfalse%
+\ not{\isacharunderscore}all{\isacharunderscore}implies{\isacharunderscore}some{\isacharunderscore}not\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{obtain}\isamarkupfalse%
+\ a\ \isakeyword{where}\ {\isachardoublequoteopen}{\isasymnot}\ F\ a{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ exE{\isacharparenright}\isanewline
+\ \ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}{\isasymnot}\ F\ a{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ F\ x{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ notE{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ F\ x\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = everythingissomething] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ {\isasymexists}\ y{\isachardot}\ x\ {\isacharequal}\ y{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{fix}\isamarkupfalse%
+\ x\isanewline
+\ \ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}x\ {\isacharequal}\ x{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ refl{\isacharparenright}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ y{\isachardot}\ x\ {\isacharequal}\ y{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Answer}[ref = symmetry] \end{Answer}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ b\ {\isasymlongrightarrow}\ b\ {\isacharequal}\ a{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ b{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ a{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}a\ {\isacharequal}\ b{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}b\ {\isacharequal}\ a{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ subst{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+\isanewline
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isatagtheory
+%
+\endisatagtheory
+{\isafoldtheory}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\end{isabellebody}%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "root"
+%%% End:
