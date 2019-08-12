@@ -1,0 +1,2729 @@
+%
+\begin{isabellebody}%
+\setisabellecontext{Introduction}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isatagtheory
+%
+\endisatagtheory
+{\isafoldtheory}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\begin{isamarkuptext}%
+\epigraph{It is unworthy of excellent men to lose hours like slaves in the labour of calculation which could 
+safely be relegated to anyone else if machines were used.}{Liebniz}%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+This is an introduction to the Isabelle proof assistant aimed at philosophers and students
+of philosophy.\footnote{I found a very useful introduction to be Nipkow \cite{nipkow_tutorial_2011}.
+A person wishing to know more about how Isabelle works might first consult Paulson \cite{paulson_ml_1996}.
+For the software itself and comprehensive documentation, see \url{https://isabelle.in.tum.de/}.
+Isabelle might not be the right too for your project -- for a comparison of alternatives see
+Wiedijk \cite{wiedijk_seventeen_2006}.}%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsection{Propositional Logic \label{propositional}%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Imagine you are caught in an air raid in the Second World War. You might reason as follows:
+\begin{quotation}
+Either I will be killed in this raid or I will not be killed. Suppose that I will. The even if I take
+precautions, I will be killed, so any precautions I take will be ineffective. But suppose I am not
+going to be killed. Then I won't be killed even if I neglect all precautions; so on this assumption,
+no precautions are necessary to avoid being killed. Either way, any precautions I take will be either
+ineffective or unnecessary, and so pointless.\footnote{This example is from Dummett \cite{dummett_bringing_1964} p. 345,
+but the version quoted here is from Stalnaker \cite{stalnaker_indicative_1975} p. 280.}
+\end{quotation} The example is notable for two reasons.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+First, if the argument were successful, then it would establish a version of \emph{fatalism},
+according to which we cannot influence future events. Any future event will either happen or not. If
+it happens then, according to the argument, it will happen even if I try to prevent it. On the other
+hand, if it doesn't happen, then it won't happen regardless of whether I try to prevent it. Either
+way, trying to prevent it is pointless. And the same goes for trying to prevent or bring about any
+other future event.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Second, and more importantly for our purposes, the argument is an example of a style emulated
+by the natural deduction rules for propositional logic.\footnote{For a classic introduction to logic 
+based on natural deduction, see Lemmon \cite{lemmon_beginning_1965}.} In this system, each propositional connective
+is associated with two rules: an introduction rule, which allows you to introduce it into an argument, 
+and an elimination rule, which allows you to derive something from it. Proofs in Isabelle are presented
+using natural deduction, so knowing the introduction and elimination rules is all you need to understand
+the proofs.\footnote{This part of the Isabelle system is known as ``Isar'' for ``Intelligible Semi-Automated Reasoning'' 
+See Wenzel \cite{wenzel_isabelle/isarversatile_2002}.} We will take the rules for each connective in turn.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsection{Conditionals%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Conditionals are translated using an arrow. So ``if it's raining then it's cloudy'', for
+example, is translated \isa{A\ {\isasymlongrightarrow}\ B}, where \isa{A} stands for ``it's raining'' and \isa{B}
+stands for ``it's cloudy''. The right hand side, in this case ``it's cloudy'', is known as the
+``consequent'' -- since it's the consequence of the condition -- whereas the left had side, in this
+case ``it's raining'' is known as the antecedent -- since it's the condition upon which the consequent
+obtains. The next two subsections explain the introduction and elimination rules for conditionals.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Conditional Proof \label{conditional_proof}%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the introduction rule for conditionals, sometimes known as ``conditional proof'',
+in order to prove a conditional one must assume the antecedent and show the consequent. Here is the
+very simplest example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ impI{\isacharparenright}\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+There are a few things to note about this example. The first line simply states the lemma to
+be proved -- in this case \isa{A\ {\isasymlongrightarrow}\ A}. The second line opens the proof, and says it will proceed
+by the rule of conditional proof, which is abbreviated as \isa{impI}, for ``implication 
+introduction''. The third line opens the assumption \isa{A}, the fourth line uses this assumption
+to show \isa{A}, and the fifth line says that proof is finished.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+There are two things about the proof that aren't quite so obvious. First, the word \isa{then}
+at the beginning of the fourth line says that this step in the proof follows from the previous line.
+Second, the period at the end of the fourth line says, roughly, that this line reiterates, or is an
+instance of, something already assumed or proved -- in this case the assumption in the previous line.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Here is another simple example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ positive{\isacharunderscore}paradox{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ impI{\isacharparenright}\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ impI{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}A{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+This proof is also very simple, but there's a few more things to note.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+First, there are no brackets in the statement of the lemma. This is because there is 
+convention that conditionals ``associate to the right''. In other words, the lemma translates back
+into English as ``if \isa{A} then if  \isa{B} then  \isa{A}'', as opposed to ``if if
+ \isa{A} then \isa{B} then \isa{A}''.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Second, just as in the last proof, this proof assumes the antecedent \isa{A} and shows
+the consequent \isa{B\ {\isasymlongrightarrow}\ A}. But this time the consequent does not just reiterate something
+already given, but itself has to proved. So the fifth line opens a new subproof within the proof. 
+This subproof is closed in the eighth line, and the proof as a whole closed in the ninth.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Third, on the seventh line  \isa{A} does not follow from the assumption just before on
+the sixth line, but from the much earlier assumption on the third line. So instead of using \isa{then}
+to refer to the previous line, we use \isa{from\ {\isasymopen}A{\isasymclose}} to refer all the way back to the assumption
+on the third line.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Fourth, if you look closely at the proof you will notice that the assumption \isa{B} on
+the sixth line is not used to show anything at all -- \isa{A} is doing all the work. This is quite
+normal in classical natural deduction systems, but it's avoided in, for example, relevant logics,
+which take issue with the fact that \isa{B} is ``irrelevant'' in this proof.\footnote{For relevant
+logics, see especially Anderson and Belnap \cite{anderson_entailment_1976}.} The logic automated 
+by Isabelle is, of course, \emph{classical} logic.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+This point is important because it is not obvious that the lemma is true. Suppose, for example,
+that \isa{A} translates ``I will die young'' and \isa{B} translates ``I will live healthily''. 
+Then the lemma as a whole translates ``If I will die young, then I will die young even if I live
+healthily'' But if my unhealthy lifestyle is the cause of my death, this is intuitively false.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The example illustrates that classical logic is not philosophically neutral, even in some of its 
+simplest manifestations. That means that not everything ``proved'' here -- no matter how reliable
+the software or rigorous the proofs -- is incontrovertibly true. Whether the reasoning below is right
+depends on whether classical logic is right. Nothing -- person or machine -- can guarantee that for
+certain.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The example also illustrates that results must be interpreted with care. The example sounds
+in English as if it supports a fatalistic conclusion -- that my dying young is outside of my control.
+But classically, the sentence is equivalent to ``if I will die young, then either I will not live
+healthily or I will die young'' which, while true, has no fatalistic consequences.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Finally, note that the lemma has been given a name, viz. \isa{positive{\isacharunderscore}paradox}. This is
+helpful if we wish to refer back to the lemma in a later proof. It also reminds us about the significance
+of the lemma -- in this case that it is one of the notorious ``paradoxes of material implication'',
+for the reasons just mentioned.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title={The Strict Positive Paradox}]
+Practice using conditional proof by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ strict{\isacharunderscore}positive{\isacharunderscore}paradox{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Where would a proponent of relevant logic find fault with this proof? Think of an example
+to show it's not obvious that this lemma is true. This problem is known as the \emph{strict} positive
+paradox of material implication, since it's consequent \isa{B\ {\isasymlongrightarrow}\ B} is a necessary truth.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Note that the command \isa{oops} allows you to state a lemma without proving it. Delete 
+it before you start your proof. If you need to use a lemma that you haven't proved in another proof, you can
+write \isa{sorry} instead of \isa{oops}. This command should obviously be used with care,
+since a lemma merely derived from an unproved lemma is itself unproved.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Modus Ponens%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the \emph{elimination} rule for conditionals, normally called modus ponens,
+from a conditional and its antecedent you can show its consequent. Here is a simple example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ impI{\isacharparenright}\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ impI{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}A{\isacharbackquoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ mp{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+The important part of this proof is the step from the sixth to seventh line, which uses
+modus ponens to derive \isa{B} from \isa{A\ {\isasymlongrightarrow}\ B} using \isa{B}. The rest of the proof
+works by two applications of conditional proof, as just described in subsection \ref{conditional_proof}.
+The only nuance is that \isa{then\ show} is now abbreviated \isa{thus}, which is purely for
+the sake of brevity.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Here is a slightly more complicated example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ contraction{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ impI{\isacharparenright}\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ impI{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ mp{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}A{\isacharbackquoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ mp{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Three things are notable about this proof. First, on line seven we said that we \isa{have}
+ \isa{A\ {\isasymlongrightarrow}\ B} instead of that we \isa{show} it. This is just to reflect that \isa{A\ {\isasymlongrightarrow}\ B}
+is not our final goal of this subproof -- it's just an intermediate step on our way to \isa{B}
+which we reach only on the eight line. In general, \isa{show} and \isa{thus} will appear only
+on the last line of a proof or subproof.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Second, order matters -- modus ponens works by deriving the consequent from the conditional 
+followed by the antecedent, not from the antecedent followed by the conditional. To see what I mean,
+consider the following variation of the same proof:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ impI{\isacharparenright}\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ impI{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B{\isacharbackquoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ rev{\isacharunderscore}mp{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}A{\isacharbackquoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ mp{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Everything is almost the same, except on the seventh line, where the order is switched and
+\isa{with} is replaced by \isa{then} and \isa{using} and \isa{mp} is replaced by \isa{rev{\isacharunderscore}mp}.
+This is annoying, because we don't normally care which order we have the antecedent and conditional
+in when we apply modus ponens. But it doesn't matter, because you get used to it.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice conditional proof and modus ponens by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ prefixing{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}C\ {\isasymlongrightarrow}\ A{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}C\ {\isasymlongrightarrow}\ B{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ suffixing{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}B\ {\isasymlongrightarrow}\ C{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ C{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Would a relevant logician logician find these proofs acceptable? What about the proof of
+contraction above?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Biconditional Introduction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The introduction rule for a biconditional is just like the introduction rule for a
+conditional, except as well as assuming the left hand side and proving the right hand side, one
+must also assume the right hand side and prove the left hand side. Here is a very simple example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongleftrightarrow}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ iffI{\isacharparenright}\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note that in order to prove a biconditional, one must prove two things: the right side from 
+the left side, and the left side from the right side. The word \isa{next} in the middle of the
+proof is just to signal the move from solving the first goal to solving the second.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Biconditional Elimination:%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+There are two elimination rules for biconditionals. The first is the same as modus ponens --
+from a biconditional and it's left hand side, one can infer it's right hand side. For example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongleftrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongleftrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymlongleftrightarrow}\ B{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ iffD{\isadigit{1}}{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+The second is the reverse -- from a biconditional and it's right hand side, one can infer
+it's left hand side. For example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongleftrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongleftrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymlongleftrightarrow}\ B{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ iffD{\isadigit{2}}{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Notice that both these proofs work by conditional proof, but I've omitted to say so. If you
+open a new subproof without specifying a rule, Isabelle will default to using the introduction rule
+for the main connective of what you are trying to prove. This helps to keep proofs tidy, and focus
+attention on the steps that matter most.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice biconditional elimination and introduction by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongleftrightarrow}\ B{\isacharparenright}\ {\isasymlongleftrightarrow}\ {\isacharparenleft}B\ {\isasymlongleftrightarrow}\ A{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsection{Conjunction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Conjunctions are translated with a wedge. So ``it's raining and it's cloudy'', for example,
+is translated \isa{A\ {\isasymand}\ B}, where \isa{A} stands for ``it's raining'' and \isa{B} stands
+for ``it's cloudy''. The next two subsections explain the introduction and elimination rules for
+conjunctions.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Conjunction Elimination%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the rule of conjunction elimination, from a conjunction, you can show each
+conjunct. For example, from \isa{A\ {\isasymand}\ B} you can show \isa{A}:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ conjE{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+And from \isa{A\ {\isasymand}\ B} you can also show \isa{B}:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ conjE{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Here is a more interesting example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ import{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ C{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymand}\ B\ {\isasymlongrightarrow}\ C{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ C{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B\ {\isasymlongrightarrow}\ C{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ conjE{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ C{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymlongrightarrow}\ C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymand}\ B{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ conjE{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}B\ {\isasymlongrightarrow}\ C{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Two things are notable about this proof. First, modus ponens or conditional elimination is
+used twice in this proof. But this has been abbreviated by two dots instead. This abbreviation can
+be used with all the basic introduction and elimination rules, for brevity.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Second, there are no brackets around \isa{A\ {\isasymand}\ B} in the statement of the lemma. This is
+because there is a convention that conjunction has higher priority than implication. That means we
+do need brackets around \isa{A\ {\isasymlongrightarrow}\ B} in the following example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ conjE{\isacharparenright}\isanewline
+\ \ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymand}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ conjE{\isacharparenright}\isanewline
+\ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymlongrightarrow}\ B{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Notice that in both these proof we had to use conjunction elimination twice -- once for each
+conjunct. This is of course a common pattern.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = Strengthening the Antecedent] Practice conjunction elimination by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ strengthening{\isacharunderscore}the{\isacharunderscore}antecedent{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ C{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymand}\ B\ {\isasymlongrightarrow}\ C{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Thinks of an example to show it's not obvious that this lemma is true. Would a relevant logician
+find fault with this proof? This lemma is known as ``strengthening the antecedent'', since \isa{A\ {\isasymand}\ B}
+is stronger than, or in other words entails, \isa{A}.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Conjunction Introduction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the rule for conjunction introduction, from the first and second conjuncts, you
+can show the conjunction. Here is a very simple example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ conjunction{\isacharunderscore}commutative{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymand}\ B\ {\isasymlongrightarrow}\ B\ {\isasymand}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymand}\ B{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}B{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymand}\ A{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ conjI{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note that \isa{hence} in this proof abbreviates \isa{then\ have}, just as \isa{thus}
+abbreviates \isa{then\ show}, again for the sake of brevity.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Here is a more interesting example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ export{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymand}\ B\ {\isasymlongrightarrow}\ C{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ C{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ antecedent{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymand}\ B\ {\isasymlongrightarrow}\ C{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ C{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymlongrightarrow}\ C{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isanewline
+\ \ \ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}A{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ conjI{\isacharparenright}\isanewline
+\ \ \ \ \ \ \isacommand{with}\isamarkupfalse%
+\ antecedent\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note how in this proof we have named the opening assumption ``antecedent'' so we can refer
+back to it by name in the final step, instead of quoting the whole line. This becomes very useful in
+the presentation of more complex proofs. Not also that, as with modus pones, order matters for
+conjunction introduction.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Like conditionals, conjunctions ``associate to the right''. This means that the associativity
+of conjunction has to be proved:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ conjunction{\isacharunderscore}associative{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymand}\ B\ {\isasymand}\ C\ {\isasymlongleftrightarrow}\ {\isacharparenleft}A\ {\isasymand}\ B{\isacharparenright}\ {\isasymand}\ C{\isachardoublequoteclose}\ \isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ left{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymand}\ B\ {\isasymand}\ C{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{from}\isamarkupfalse%
+\ left\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymand}\ C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}A{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}B\ {\isasymand}\ C{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymand}\ B{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymand}\ B{\isacharparenright}\ {\isasymand}\ C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ right{\isacharcolon}\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymand}\ B{\isacharparenright}\ {\isasymand}\ C{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{from}\isamarkupfalse%
+\ right\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}B{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymand}\ C{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymand}\ B{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ B\ {\isasymand}\ C{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}B\ {\isasymand}\ C{\isacharbackquoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Notice that in the left to right direction of this proof, \isa{A\ {\isasymand}\ B} couldn't be derived
+from \isa{A\ {\isasymand}\ B\ {\isasymand}\ C} in a single step -- \isa{A} and \isa{B} had to be derived separately
+first. This is because the conjunction associates to the right, and so \isa{A\ {\isasymand}\ B} is not a conjunct
+of \isa{A\ {\isasymand}\ B\ {\isasymand}\ C} at all -- its conjuncts are just \isa{A} and \isa{B\ {\isasymand}\ C}.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice conjunction introduction by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ C{\isacharparenright}\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B\ {\isasymand}\ C{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsection{Disjunction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Disjunctions are translated with a vee. So ``it's raining or it's cloudy'' is translated
+\isa{A\ {\isasymor}\ B}, where \isa{A} stands for ``it's raining'' and \isa{B} stands for ``'it's cloudy''.
+Needless to say, disjunction is \emph{inclusive}, so ``it's raining or it's cloudy'' is compatible with
+``it's raining and it's cloudy''. The next two subsections explain the introduction and elimination
+rules for disjunction.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Disjunction Introduction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+There are two rules for disjunction introduction. According to the first, you can show a 
+disjunction from its first disjunct. For example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ A\ {\isasymor}\ B{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ disjI{\isadigit{1}}{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+According to the second, you can show a disjunction from its second disjunct. For example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}B\ {\isasymlongrightarrow}\ A\ {\isasymor}\ B{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ B{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ disjI{\isadigit{2}}{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note that we can omit brackets around the disjunction, since it has higher priority than
+implication. However, conjunction has higher priority than disjunction.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice disjunction introduction by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ B\ {\isasymor}\ C{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsubsection{Disjunction Elimination%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Disjunction elimination is a bit more complicated. According to it, if you have a disjunction,
+and you can prove something from both its disjuncts, then you can prove that thing simpliciter.
+Here is a simple example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ A\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ disjE{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note the use of ``thus'' on the fourth line of this proof. To use disjunction elimination,
+you need to show three things -- the disjunction itself, that the conclusion follows from the first
+disjunct, and that the conclusion follows from the second disjunct. In this case, we already had the
+disjunction, so we wrote ``thus'' in order to use it. But we could equally well have written the
+proof in this slightly longer way:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ A\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ disjE{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ A{\isachardoublequoteclose}\ \isacommand{using}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymor}\ A{\isacharbackquoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note also that disjunction elimination is the key rule in our motivating example from
+section \ref{propositional} -- I will be killed in the air raid or I will not, but \emph{either way}
+taking precautions is pointless, so taking precautions is pointless.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Like conditionals and conjunctions, disjunctions associate to the right.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice disjunction elimination by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ C{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}B\ {\isasymlongrightarrow}\ C{\isacharparenright}\ {\isasymlongrightarrow}\ A\ {\isasymor}\ B\ {\isasymlongrightarrow}\ C{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = The Associativity of Disjunction] 
+Prove the associativity of disjunction: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ B\ {\isasymor}\ C\ {\isasymlongleftrightarrow}\ {\isacharparenleft}A\ {\isasymor}\ B{\isacharparenright}\ {\isasymor}\ C{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise}\label{disjEexercises} Practice disjunction elimination and introduction by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ B\ {\isasymand}\ C\ {\isasymlongrightarrow}\ {\isacharparenleft}A\ {\isasymor}\ B{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}A\ {\isasymor}\ C{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Can you prove the converse from the rules covered so far? Why or why not?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsection{Negation%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Negation is translated by \isa{{\isasymnot}}, so ``it's not raining'' is translated \isa{{\isasymnot}\ A},
+where \isa{A} stands for ``it's raining''. Like the other connectives, negation has an introduction
+rule and an elimination rule. We also discuss two other rules in this section -- classical contradiction,
+which distinguishes classical from intuitionistic logic, and proof by cases.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Negation Elimination%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the rule for negation elimination, if one has a negation, and also what it
+negates, then one can derive anything at all. Here is a simple example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ negative{\isacharunderscore}paradox{\isacharcolon}\ {\isachardoublequoteopen}{\isasymnot}\ A\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}{\isasymnot}\ A{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ B\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ notE{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Notice that \isa{B} in this proof is completely arbitrary, and could have been any
+proposition at all.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+This point is philosophically important, because it is not obvious that the lemma is true.
+Suppose, for example, that \isa{A} translates ``I live healthily'' and \isa{B} translates ``I
+will die young''. Then the lemma as a whole translates as ``If I do not live healthily, then I will
+die young even if I live healthily''. But if my unhealthily lifestyle is the cause of my death,
+this is intuitively false.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The example is clearly closely related to the positive paradox of material implication from
+section \ref{conditional_proof}, and for this reason it is known as the \emph{negative} paradox of
+material implication. For this reason, both the lemma and the rule that supports it are rejected by
+relevant logicians (even though there is no unused assumption here).\footnote{See Anderson and Belnap
+\cite{anderson_entailment_1976} pp. 163-7.}
+This is worth remembering, since otherwise the negative paradox is often a source of surprise.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Prove that a contradiction entails anything: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ explosion{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymand}\ {\isasymnot}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Suppose the butler did it or the gardener did it. Then prove that if the butler didn't do it, 
+the gardener did: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ B\ {\isasymlongrightarrow}\ {\isasymnot}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+How is the proof of this lemma related to the paradoxes of material implication. Would a
+relevant logician accept it?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Negation Introduction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the rule for negation introduction if you assume something, and then you show
+\isa{False}, then you can show the negation of what you assumed. Here is an example, sometimes
+known as the law of non-contradiction:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}A\ {\isasymand}\ {\isasymnot}\ A{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ notI{\isacharparenright}\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymand}\ {\isasymnot}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}\ {\isasymnot}\ A{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{moreover}\isamarkupfalse%
+\ \isacommand{from}\isamarkupfalse%
+\ {\isacharbackquoteopen}A\ {\isasymand}\ {\isasymnot}\ A{\isacharbackquoteclose}\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{ultimately}\isamarkupfalse%
+\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}False{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ notE{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Two things are notable about this proof. First \isa{False} doesn't have any introduction
+rule of its own -- it's shown using by negation elimination, which as we emphasised in the previous
+subsection can be used to show \emph{anything} from a contradiction.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Second, \isa{False} was shown from two facts -- \isa{{\isasymnot}\ A} and \isa{A}. So as to avoid
+having to refer back to the first of these by name, we used the command \isa{moreover} followed by
+the command \isa{ultimately}.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice negation introduction by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ {\isasymnot}\ {\isasymnot}\ A{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise}\label{doubleexcludedmiddle} The next example is challenging, but instructive. Prove: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ {\isasymnot}\ {\isacharparenleft}A\ {\isasymor}\ {\isasymnot}\ A{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Hint: Assume \isa{{\isasymnot}\ {\isacharparenleft}A\ {\isasymor}\ {\isasymnot}\ A{\isacharparenright}} and then prove \isa{A\ {\isasymor}\ {\isasymnot}\ A} by disjunction introduction
+from  \isa{{\isasymnot}\ A}. Can you prove simply \isa{A\ {\isasymor}\ {\isasymnot}\ A} from the rules covered so far. Why or 
+why not?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Classical Contradiction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The rules we have learnt so far constitute the propositional fragment of \emph{intuitionistic}
+logic. To get the full strength of classical logic, we need the rule of classical contradiction,
+according to which if you can show \isa{False} from a negation, then you can show what it negates.
+Here is the simplest example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymnot}\ A\ {\isasymlongrightarrow}\ False{\isacharparenright}\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ A\ {\isasymlongrightarrow}\ False{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ ccontr{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}{\isasymnot}\ A\ {\isasymlongrightarrow}\ False{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}False{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+And here is a proof of double negation elimination%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ double{\isacharunderscore}negation{\isacharunderscore}elimination{\isacharcolon}\ {\isachardoublequoteopen}{\isasymnot}{\isasymnot}A\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}{\isasymnot}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ ccontr{\isacharparenright}\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}{\isasymnot}{\isasymnot}A{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}False{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note that in many presentations of natural deduction, double negation elimination is the basic
+rule and it is classical contradiction which is derived.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = The Law of Excluded Middle]\label{excludedmiddle} 
+Prove the law of excluded middle: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ excluded{\isacharunderscore}middle{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymor}\ {\isasymnot}\ A{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+How is this proof related to the proof in exercise \ref{doubleexcludedmiddle}, and to double negation elimination?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Proof by Cases%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Proof by cases is really the application of disjunction elimination using the law of excluded
+middle -- but since this is such a common pattern, it helps to have an abbreviation. As a simple example,
+we use it to give another (circular) proof of the law of excluded middle itself:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ {\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ cases\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ {\isasymnot}\ A{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}A\ {\isasymor}\ {\isasymnot}\ A{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = Conditional Excluded Middle] Prove the Law of Conditional Excluded
+Middle: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymor}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ {\isasymnot}\ B{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+How is the proof related to the positive paradox? Can you think of an intuitive counterexample?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Prove: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymor}\ {\isacharparenleft}B\ {\isasymlongrightarrow}\ A{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Think of an example to show it's not obvious that this lemma is true. How is the proof of
+the lemma related to the paradoxes of material implication?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise}  Prove the converse from Exercise \ref{disjEexercises}: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymor}\ B{\isacharparenright}\ {\isasymand}\ {\isacharparenleft}A\ {\isasymor}\ C{\isacharparenright}\ {\isasymlongrightarrow}\ A\ {\isasymor}\ B\ {\isasymand}\ C{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = The Equivalence Thesis]
+The theory of conditionals encapsulated in the classical natural deduction rules can be
+summed up by the equivalence thesis, according to which a conditional is true if and only if
+its antecedent is false or its consequent is true. So prove:  \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongleftrightarrow}\ {\isacharparenleft}{\isasymnot}\ A\ {\isasymor}\ B{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Equivalently, a conditional is true if and only if it's not the case that it's antecedent is
+true and it's consequent is false. So prove:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharparenleft}A\ {\isasymand}\ {\isasymnot}\ B{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Where would a proponent of relevant logic fault these proofs?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = The Air Raid] The motivating argument from section \ref{propositional} could be formalised like this: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\isanewline
+\ \ \isakeyword{assumes}\ {\isachardoublequoteopen}A\ {\isasymor}\ {\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isakeyword{assumes}\ {\isachardoublequoteopen}A\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}B\ {\isasymlongrightarrow}\ A{\isacharparenright}\ {\isasymlongrightarrow}\ D{\isachardoublequoteclose}\isanewline
+\ \ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isasymnot}\ A\ {\isasymlongrightarrow}\ C\ {\isasymlongrightarrow}\ {\isasymnot}\ A{\isachardoublequoteclose}\isanewline
+\ \ \isakeyword{assumes}\ {\isachardoublequoteopen}{\isacharparenleft}C\ {\isasymlongrightarrow}\ {\isasymnot}\ A{\isacharparenright}\ {\isasymlongrightarrow}\ D{\isachardoublequoteclose}\isanewline
+\ \ \isakeyword{shows}\ {\isachardoublequoteopen}D{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note that premises can be written with \isa{assumes} and the conclusion with \isa{shows}.
+Which of the premises can be proven in classical logic? Where could an intuitionist logician object to
+the argument. Where could a relevant logician object? And where must a classical logician, who accepts
+the equivalence thesis but rejects fatalism, object?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsection{Predicate Logic%
+}
+\isamarkuptrue%
+%
+\isamarkupsubsection{Universal Quantification%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The universal quantifier is translated with an upside down ``A''. So ``all men are mortal'',
+for example, is translated as \isa{{\isasymforall}x{\isachardot}\ F\ x\ {\isasymlongrightarrow}\ G\ x} where \isa{F\ x} stands for ``is a man''
+and \isa{F\ x} for ``is mortal''. The next two subsections explain the introduction and elimination
+rules for the universal quantifier.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Universal Elimination%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+If you have a universal statement, then you can replace the variable it binds with any term 
+(of the same type). For example, if everything is an \isa{F} then \isa{a} is an \isa{F}:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ F\ a{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ F\ x{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ allE{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Two things are notable about this example. The first is that the conventions for brackets are 
+slightly different from usual -- the scope of the quantifier is everything within the surrounding 
+brackets. The second is that there has to be a space between the predicate and name or variable,
+to make sure they are different terms (the advantage of this is that terms don't have to be a single
+letter or character, and so you don't have to worry about running out).%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice universal elimination by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ F\ a\ {\isasymand}\ F\ b{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = The Riddle of Dracula]
+Prove that if everyone is afraid of Dracula, then if Dracula is afraid only of me, then I am Dracula: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ R\ x\ d{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ z{\isachardot}\ R\ d\ z\ {\isasymlongrightarrow}\ z\ {\isacharequal}\ m{\isacharparenright}\ {\isasymlongrightarrow}\ d\ {\isacharequal}\ m{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Why is this lemma surprising?\footnote{This example is from Richard Cartwright, reported by
+Smullyan \cite{smullyan_what_1978} p. 212.}%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Universal Introduction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+To introduce a universally quantified statement, once must first prove an instance for an
+arbitrary term. Here is a very simple example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ F\ x\ {\isasymlongrightarrow}\ F\ x{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ allI{\isacharparenright}\isanewline
+\ \ \isacommand{fix}\isamarkupfalse%
+\ a\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a\ {\isasymlongrightarrow}\ F\ a{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+The role of \isa{fix} in the third line is to introduce an arbitrary term. I've used the
+term \isa{a}, as one might in an introductory logic textbook, but of course any new term would do 
+-- a popular choice in this case would just be \isa{x}.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice universal elimination and introduction by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x\ {\isasymand}\ G\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Prove that if everyone is at the party, then everyone in the world is at the party: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x\ {\isasymlongrightarrow}\ G\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+How is this lemma related to the positive paradox?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsection{Existential Quantification%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The existential quantifier is translated with a backward ``E''. So `some man is mortal', for
+example, is translated \isa{{\isasymexists}x{\isachardot}\ F\ x\ {\isasymand}\ G\ x} where \isa{F\ x} stands for `is a man'
+and \isa{F\ x} stands for `is mortal'. The next two subsections explain the introduction and
+elimination rules for the existential quantifier.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Existential Introduction%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the rule of existential introduction, from some term satisfying a sentence,
+one can show that something satisfies that sentence. For example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ F\ x{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ exI{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Here is a trickier example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x\ {\isasymor}\ F\ x{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharminus}\isanewline
+\ \ \isacommand{from}\isamarkupfalse%
+\ excluded{\isacharunderscore}middle\ \isacommand{have}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ F\ a\ {\isasymor}\ F\ a{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x\ {\isasymor}\ F\ x{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ exI{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Notice that there is a ``\isa{{\isacharminus}}'' just after \isa{proof}. This is to stop Isabelle from
+defaulting to applying the existential introduction immediately, as she normally would. If she did, then
+she would expect you to show \isa{{\isasymnot}\ F\ a\ {\isasymor}\ F\ a} for some \emph{old} name \isa{a}. But you don't
+have any old name, and so you'd be stuck. Instead, you have to prove \isa{{\isasymnot}\ F\ a\ {\isasymor}\ F\ a} first, and
+then apply existential introduction afterwards -- now to an old name.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = The Converse Drinkers Principle]
+Prove that there is someone such that if anyone drinks, then they do: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ {\isacharparenleft}{\isasymexists}\ y{\isachardot}\ F\ y{\isacharparenright}\ {\isasymlongrightarrow}\ F\ x{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+How is this proof related to the paradoxes of material implication?\footnote{This problem is
+from Smullyan \cite{smullyan_what_1978} p. 210-1. It is the converse of exercise \ref{drinker}.}%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Prove that if not everything is \isa{F}, something is not \isa{F}: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ not{\isacharunderscore}all{\isacharunderscore}implies{\isacharunderscore}some{\isacharunderscore}not{\isacharcolon}\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ {\isasymnot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Would an intuitionist accept this proof?%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Prove that if everything is \isa{F}, then something is \isa{F}: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsubsection{Existential Elimination%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the rule of existential elimination, if something satisfies a sentence, then
+you can obtain a name for that thing. For example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x\ {\isasymand}\ G\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ F\ x\ {\isasymand}\ G\ x{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{obtain}\isamarkupfalse%
+\ a\ \isakeyword{where}\ {\isachardoublequoteopen}F\ a\ {\isasymand}\ G\ a{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ exE{\isacharparenright}\isanewline
+\ \ \isacommand{hence}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ F\ x{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note that you can use any letter for the introduced term, but the computer can tell if you
+try to cheat. For example, you cannot prove:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ F\ a{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Since although you can use existential elimination to obtain \isa{F\ a}, your computer
+will not accept that as resolving your goal, since it knows that the ``new'' name you introduced is
+not the same as the ``old'' name you had in your goal (try it and you'll see what I mean).%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice existential introduction and elimination by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x\ {\isasymor}\ G\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = {The Drinker Principle}]\label{drinker} 
+Prove that there is someone such that if they drink, then everybody drinks: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymexists}\ x{\isachardot}\ F\ x\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+How is this theorem related to the paradoxes of material implication?\footnote{This problem
+is from Smullyan \cite{smullyan_what_1978}, pp. 209-11. It's a common example in automated theorem
+proving. See, for example, Barendregt \cite{barendregt_quest_1996}, pp. 54-55.}%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsection{Identity%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+The identity predicate is translated by the familiar sign \isa{{\isacharequal}}. So `Hesperus is Phosphorus',
+for example, is translated as \isa{a\ {\isacharequal}\ b}.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsubsection{Reflexivity%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the introduction rule for identity, one may show at anytime that something is
+identical to itself. For example, we can prove that everything is self-identical:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ x\ {\isacharequal}\ x{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{fix}\isamarkupfalse%
+\ a\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ a\ {\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ refl{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice the reflexivity rule by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a\ {\isasymlongrightarrow}\ a\ {\isacharequal}\ a{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Prove that everything is identical to something: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ {\isasymexists}\ y{\isachardot}\ x\ {\isacharequal}\ y{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsubsection{Substitution%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the rule of substitution, if you have  \isa{x\ {\isacharequal}\ y} and you have \isa{A},
+then you can substitute \isa{y} for occurrences of \isa{x} in \isa{A}. For example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ b\ {\isasymlongrightarrow}\ F\ a\ {\isasymlongrightarrow}\ F\ b{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ b{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a\ {\isasymlongrightarrow}\ F\ b{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}a\ {\isacharequal}\ b{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ b{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ subst{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Notice that this rule only allows you to use \isa{a\ {\isacharequal}\ b} to substitute \isa{a} for
+\isa{b}, and not vice versa. However, the following variation of the rule is available:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ b\ {\isasymlongrightarrow}\ F\ b\ {\isasymlongrightarrow}\ F\ a{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ b{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ b\ {\isasymlongrightarrow}\ F\ a{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ b{\isachardoublequoteclose}\isanewline
+\ \ \ \ \isacommand{with}\isamarkupfalse%
+\ {\isacharbackquoteopen}a\ {\isacharequal}\ b{\isacharbackquoteclose}\ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ a{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ ssubst{\isacharparenright}\isanewline
+\ \ \isacommand{qed}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+The difference is subtle -- just one extra `s' at the beginning of the rule.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Prove the symmetry of identity: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ b\ {\isasymlongrightarrow}\ b\ {\isacharequal}\ a{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Prove the transitivity of identity: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ b\ {\isasymlongrightarrow}\ b\ {\isacharequal}\ c\ {\isasymlongrightarrow}\ a\ {\isacharequal}\ c{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+\begin{Exercise}[title = The Indiscernibility of Identity] Prove the indiscernibility of identicals: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}x\ {\isacharequal}\ y\ {\isasymlongrightarrow}\ {\isacharparenleft}F\ x\ {\isasymlongleftrightarrow}\ F\ y{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsubsection{Definite Descriptions%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+According to the introduction rule for definite descriptions, to show that something is
+the \isa{F} one may first show two things. First, that it is an \isa{F}. Second that any
+arbitrary \isa{F} is that thing. For example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}THE\ x{\isachardot}\ x\ {\isacharequal}\ a{\isacharparenright}\ {\isacharequal}\ a{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharparenleft}rule\ the{\isacharunderscore}equality{\isacharparenright}\isanewline
+\ \ \isacommand{show}\isamarkupfalse%
+\ {\isachardoublequoteopen}a\ {\isacharequal}\ a{\isachardoublequoteclose}\isacommand{{\isachardot}{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{next}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{fix}\isamarkupfalse%
+\ b\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}b\ {\isacharequal}\ a{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}b\ {\isacharequal}\ a{\isachardoublequoteclose}\isacommand{{\isachardot}}\isamarkupfalse%
+\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Note that one cannot eliminate definite descriptions in the way one might expect. For example,
+neither of the following can be proved:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}G\ {\isacharparenleft}THE\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ {\isacharparenleft}THE\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ {\isasymforall}\ y{\isachardot}\ F\ y\ {\isasymlongrightarrow}\ y\ {\isacharequal}\ x{\isacharparenright}{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+The advantage of this is that definite descriptions function just like any other term. For
+example the following is valid:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isasymlongrightarrow}\ F\ {\isacharparenleft}THE\ x{\isachardot}\ G\ x{\isacharparenright}{\isachardoublequoteclose}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymforall}\ x{\isachardot}\ F\ x{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{thus}\isamarkupfalse%
+\ {\isachardoublequoteopen}F\ {\isacharparenleft}THE\ x{\isachardot}\ G\ x{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{by}\isamarkupfalse%
+\ {\isacharparenleft}rule\ allE{\isacharparenright}\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+This is not in accordance with the traditional Russellian theory, so this is something that
+has to be kept in mind, especially since many philosophers do assume the Russellian analysis.\footnote{
+For Russell's theory of definite descriptions see \cite{russell_denoting_1905}.}%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+\begin{Exercise} Practice introducing definite descriptions by proving: \end{Exercise}%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x\ {\isasymlongleftrightarrow}\ x\ {\isacharequal}\ a{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}THE\ x{\isachardot}\ F\ x{\isacharparenright}\ {\isacharequal}\ a{\isachardoublequoteclose}%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isamarkupsection{Automation%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+By now you probably feel more like the slave from Liebniz' quotation than an excellent person.
+But happily, Isabelle contains many automated tools to make your work easier. I will describe three of
+the most useful.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsection{Nitpick%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Nitpick is a counterexample generator.\footnote{See Blanchette and Nipkow \cite{blanchette_nitpick_2010}.} 
+For example, to generate a counterexample to the fallacy of affirming the consequent, you could type:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ \isanewline
+\ \ \isakeyword{assumes}\ {\isachardoublequoteopen}p\ {\isasymlongrightarrow}\ q{\isachardoublequoteclose}\isanewline
+\ \ \isakeyword{assumes}\ {\isachardoublequoteopen}q{\isachardoublequoteclose}\isanewline
+\ \ \isakeyword{shows}\ {\isachardoublequoteopen}p{\isachardoublequoteclose}\ \isacommand{nitpick}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+In which case nitpick will inform you of a countermodel in which  \isa{p} is false and 
+\isa{q} is true.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsection{Sledgehammer%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+Sledgehammer looks for a proof using various automated theorem provers.\footnote{See Blanchette
+and Paulson \cite{blanchette_hammering_2016}.} 
+Here is an example:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x\ {\isasymlongrightarrow}\ G\ x{\isacharparenright}\ {\isasymor}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x\ {\isasymand}\ {\isasymnot}\ G\ x{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{sledgehammer}\isamarkupfalse%
+\isanewline
+%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ auto%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+To produce an explicit natural deduction style proof, you can try:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ F\ x\ {\isasymlongrightarrow}\ G\ x{\isacharparenright}\ {\isasymor}\ {\isacharparenleft}{\isasymexists}\ x{\isachardot}\ F\ x\ {\isasymand}\ {\isasymnot}\ G\ x{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{sledgehammer}\isamarkupfalse%
+\ {\isacharbrackleft}isar{\isacharunderscore}proofs{\isacharbrackright}\isanewline
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isatagproof
+\isacommand{proof}\isamarkupfalse%
+\ {\isacharminus}\isanewline
+\isacommand{{\isacharbraceleft}}\isamarkupfalse%
+\ \isacommand{assume}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isasymnot}\ F\ v{\isadigit{0}}{\isacharunderscore}{\isadigit{0}}\ {\isasymor}\ G\ v{\isadigit{0}}{\isacharunderscore}{\isadigit{0}}{\isachardoublequoteclose}\isanewline
+\ \ \isacommand{have}\isamarkupfalse%
+\ {\isacharquery}thesis\isanewline
+\ \ \ \ \ \ \isacommand{by}\isamarkupfalse%
+\ blast\ \isacommand{{\isacharbraceright}}\isamarkupfalse%
+\isanewline
+\ \ \isacommand{then}\isamarkupfalse%
+\ \isacommand{show}\isamarkupfalse%
+\ {\isacharquery}thesis\isanewline
+\ \ \ \ \isacommand{by}\isamarkupfalse%
+\ blast\isanewline
+\isacommand{qed}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\begin{isamarkuptext}%
+Unsurprisingly, the result is not quite so legible as a hand written proof.%
+\end{isamarkuptext}\isamarkuptrue%
+%
+\isamarkupsubsection{Try%
+}
+\isamarkuptrue%
+%
+\begin{isamarkuptext}%
+What if you don't know whether the statement you're interested in is a theorem? Try try:%
+\end{isamarkuptext}\isamarkuptrue%
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymforall}\ x{\isachardot}\ {\isasymexists}\ y{\isachardot}\ R\ x\ y{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymexists}\ y{\isachardot}\ {\isasymforall}\ x{\isachardot}\ R\ x\ y{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{try}\isamarkupfalse%
+%
+\isadelimproof
+\ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{oops}\isamarkupfalse%
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+\isanewline
+\isanewline
+\isacommand{lemma}\isamarkupfalse%
+\ {\isachardoublequoteopen}{\isacharparenleft}{\isasymexists}\ x{\isachardot}\ {\isasymforall}\ y{\isachardot}\ R\ x\ y{\isacharparenright}\ {\isasymlongrightarrow}\ {\isacharparenleft}{\isasymforall}\ y{\isachardot}\ {\isasymexists}\ x{\isachardot}\ R\ x\ y{\isacharparenright}{\isachardoublequoteclose}\ \isacommand{try}\isamarkupfalse%
+\isanewline
+%
+\isadelimproof
+\ \ %
+\endisadelimproof
+%
+\isatagproof
+\isacommand{by}\isamarkupfalse%
+\ auto\isanewline
+%
+\endisatagproof
+{\isafoldproof}%
+%
+\isadelimproof
+%
+\endisadelimproof
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\isatagtheory
+%
+\endisatagtheory
+{\isafoldtheory}%
+%
+\isadelimtheory
+%
+\endisadelimtheory
+%
+\end{isabellebody}%
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "root"
+%%% End:
