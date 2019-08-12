@@ -1,3 +1,7 @@
+## Isabelle Files
+output/document/
+*.thy~
+
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
