@@ -37,7 +37,7 @@ Wiedijk \cite{wiedijk_seventeen_2006}.}%
 \begin{isamarkuptext}%
 Imagine you are caught in an air raid in the Second World War. You might reason as follows:
 \begin{quotation}
-Either I will be killed in this raid or I will not be killed. Suppose that I will. The even if I take
+Either I will be killed in this raid or I will not be killed. Suppose that I will. Then even if I take
 precautions, I will be killed, so any precautions I take will be ineffective. But suppose I am not
 going to be killed. Then I won't be killed even if I neglect all precautions; so on this assumption,
 no precautions are necessary to avoid being killed. Either way, any precautions I take will be either
@@ -250,7 +250,7 @@ Practice using conditional proof by proving: \end{Exercise}%
 \begin{isamarkuptext}%
 Where would a proponent of relevant logic find fault with this proof? Think of an example
 to show it's not obvious that this lemma is true. This problem is known as the \emph{strict} positive
-paradox of material implication, since it's consequent \isa{B\ {\isasymlongrightarrow}\ B} is a necessary truth.%
+paradox of material implication, since its consequent \isa{B\ {\isasymlongrightarrow}\ B} is a necessary truth.%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
@@ -500,7 +500,7 @@ proof is just to signal the move from solving the first goal to solving the seco
 %
 \begin{isamarkuptext}%
 There are two elimination rules for biconditionals. The first is the same as modus ponens --
-from a biconditional and it's left hand side, one can infer it's right hand side. For example:%
+from a biconditional and its left hand side, one can infer its right hand side. For example:%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongleftrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}\isanewline
@@ -536,8 +536,8 @@ from a biconditional and it's left hand side, one can infer it's right hand side
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-The second is the reverse -- from a biconditional and it's right hand side, one can infer
-it's left hand side. For example:%
+The second is the reverse -- from a biconditional and its right hand side, one can infer
+its left hand side. For example:%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongleftrightarrow}\ B{\isacharparenright}\ {\isasymlongrightarrow}\ B\ {\isasymlongrightarrow}\ A{\isachardoublequoteclose}\isanewline
@@ -786,7 +786,7 @@ conjunct. This is of course a common pattern.%
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-Thinks of an example to show it's not obvious that this lemma is true. Would a relevant logician
+Think of an example to show it's not obvious that this lemma is true. Would a relevant logician
 find fault with this proof? This lemma is known as ``strengthening the antecedent'', since \isa{A\ {\isasymand}\ B}
 is stronger than, or in other words entails, \isa{A}.%
 \end{isamarkuptext}\isamarkuptrue%
@@ -1332,7 +1332,7 @@ This is worth remembering, since otherwise the negative paradox is often a sourc
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%
-\begin{Exercise}[label = explosion] Prove that a contradiction entails anything: \end{Exercise}%
+\begin{Exercise}[title = Explosion, label = explosion] Prove that a contradiction entails anything: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ explosion{\isacharcolon}\ {\isachardoublequoteopen}A\ {\isasymand}\ {\isasymnot}\ A\ {\isasymlongrightarrow}\ B{\isachardoublequoteclose}%
@@ -1385,7 +1385,7 @@ According to the rule for negation introduction if you assume something, and the
 known as the law of non-contradiction:%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
-\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}A\ {\isasymand}\ {\isasymnot}\ A{\isacharparenright}{\isachardoublequoteclose}\isanewline
+\ non{\isacharunderscore}contradiction{\isacharcolon}\ {\isachardoublequoteopen}{\isasymnot}\ {\isacharparenleft}A\ {\isasymand}\ {\isasymnot}\ A{\isacharparenright}{\isachardoublequoteclose}\isanewline
 %
 \isadelimproof
 %
@@ -1623,8 +1623,8 @@ we use it to give another (circular) proof of the law of excluded middle itself:
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-\begin{Exercise}[title = Conditional Excluded Middle] Prove the Law of Conditional Excluded
-Middle: \end{Exercise}%
+\begin{Exercise}[title = Conditional Excluded Middle] 
+Use proof by cases to prove the Law of Conditional Excluded Middle: \end{Exercise}%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymor}\ {\isacharparenleft}A\ {\isasymlongrightarrow}\ {\isasymnot}\ B{\isacharparenright}{\isachardoublequoteclose}%
@@ -1712,8 +1712,8 @@ its antecedent is false or its consequent is true. So prove:  \end{Exercise}%
 \endisadelimproof
 %
 \begin{isamarkuptext}%
-Equivalently, a conditional is true if and only if it's not the case that it's antecedent is
-true and it's consequent is false. So prove:%
+Equivalently, a conditional is true if and only if it's not the case that its antecedent is
+true and its consequent is false. So prove:%
 \end{isamarkuptext}\isamarkuptrue%
 \isacommand{lemma}\isamarkupfalse%
 \ {\isachardoublequoteopen}{\isacharparenleft}A\ {\isasymlongrightarrow}\ B{\isacharparenright}\ {\isasymlongleftrightarrow}\ {\isasymnot}\ {\isacharparenleft}A\ {\isasymand}\ {\isasymnot}\ B{\isacharparenright}{\isachardoublequoteclose}%
@@ -1825,7 +1825,7 @@ Two things are notable about this example. The first is that the conventions for
 slightly different from usual -- the scope of the quantifier is everything within the surrounding 
 brackets. The second is that there has to be a space between the predicate and name or variable,
 to make sure they are different terms (the advantage of this is that terms don't have to be a single
-letter or character, and so you don't have to worry about running out).%
+letter or character, and so you won't run out).%
 \end{isamarkuptext}\isamarkuptrue%
 %
 \begin{isamarkuptext}%

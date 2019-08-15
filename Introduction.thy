@@ -19,7 +19,7 @@ section {* Propositional Logic \label{propositional} *}
 
 text {* Imagine you are caught in an air raid in the Second World War. You might reason as follows:
 \begin{quotation}
-Either I will be killed in this raid or I will not be killed. Suppose that I will. The even if I take
+Either I will be killed in this raid or I will not be killed. Suppose that I will. Then even if I take
 precautions, I will be killed, so any precautions I take will be ineffective. But suppose I am not
 going to be killed. Then I won't be killed even if I neglect all precautions; so on this assumption,
 no precautions are necessary to avoid being killed. Either way, any precautions I take will be either
@@ -141,7 +141,7 @@ lemma strict_positive_paradox: "A \<longrightarrow> B \<longrightarrow> B" oops
 
 text {* Where would a proponent of relevant logic find fault with this proof? Think of an example
 to show it's not obvious that this lemma is true. This problem is known as the \emph{strict} positive
-paradox of material implication, since it's consequent @{term "B \<longrightarrow> B"} is a necessary truth. *}
+paradox of material implication, since its consequent @{term "B \<longrightarrow> B"} is a necessary truth. *}
 
 text {* Note that the command @{text "oops"} allows you to state a lemma without proving it. Delete 
 it before you start your proof. If you need to use a lemma that you haven't proved in another proof, you can
@@ -239,7 +239,7 @@ proof is just to signal the move from solving the first goal to solving the seco
 subsubsection {* Biconditional Elimination: *}
 
 text {* There are two elimination rules for biconditionals. The first is the same as modus ponens --
-from a biconditional and it's left hand side, one can infer it's right hand side. For example: *}
+from a biconditional and its left hand side, one can infer its right hand side. For example: *}
 
 lemma "(A \<longleftrightarrow> B) \<longrightarrow> A \<longrightarrow> B"
 proof
@@ -251,8 +251,8 @@ proof
   qed
 qed
 
-text {* The second is the reverse -- from a biconditional and it's right hand side, one can infer
-it's left hand side. For example: *}
+text {* The second is the reverse -- from a biconditional and its right hand side, one can infer
+its left hand side. For example: *}
 
 lemma "(A \<longleftrightarrow> B) \<longrightarrow> B \<longrightarrow> A"
 proof
@@ -340,7 +340,7 @@ text {*  \begin{Exercise}[title = Strengthening the Antecedent] Practice conjunc
 
 lemma strengthening_the_antecedent: "(A \<longrightarrow> C) \<longrightarrow> (A \<and> B \<longrightarrow> C)" oops
 
-text {* Thinks of an example to show it's not obvious that this lemma is true. Would a relevant logician
+text {* Think of an example to show it's not obvious that this lemma is true. Would a relevant logician
 find fault with this proof? This lemma is known as ``strengthening the antecedent'', since @{term "A \<and> B"}
 is stronger than, or in other words entails, @{term "A"}. *}
 
@@ -546,7 +546,7 @@ relevant logicians (even though there is no unused assumption here).\footnote{Se
 @{cite "anderson_entailment_1976"} pp. 163-7.}
 This is worth remembering, since otherwise the negative paradox is often a source of surprise. *}
 
-text {* \begin{Exercise}[label = explosion] Prove that a contradiction entails anything: \end{Exercise} *}
+text {* \begin{Exercise}[title = Explosion, label = explosion] Prove that a contradiction entails anything: \end{Exercise} *}
 
 lemma explosion: "A \<and> \<not> A \<longrightarrow> B" oops
 
@@ -564,7 +564,7 @@ text {* According to the rule for negation introduction if you assume something,
 @{term "False"}, then you can show the negation of what you assumed. Here is an example, sometimes
 known as the law of non-contradiction:  *}
 
-lemma "\<not> (A \<and> \<not> A)"
+lemma non_contradiction: "\<not> (A \<and> \<not> A)"
 proof (rule notI)
   assume "A \<and> \<not>A"
   hence " \<not> A"..
@@ -647,8 +647,8 @@ next
   thus "A \<or> \<not> A"..
 qed
 
-text {* \begin{Exercise}[title = Conditional Excluded Middle] Prove the Law of Conditional Excluded
-Middle: \end{Exercise} *}
+text {* \begin{Exercise}[title = Conditional Excluded Middle] 
+Use proof by cases to prove the Law of Conditional Excluded Middle: \end{Exercise} *}
 
 lemma "(A \<longrightarrow> B) \<or> (A \<longrightarrow> \<not> B)" oops
 
@@ -672,8 +672,8 @@ its antecedent is false or its consequent is true. So prove:  \end{Exercise} *}
 
 lemma "(A \<longrightarrow> B) \<longleftrightarrow> (\<not> A \<or> B)" oops
 
-text {* Equivalently, a conditional is true if and only if it's not the case that it's antecedent is
-true and it's consequent is false. So prove: *}
+text {* Equivalently, a conditional is true if and only if it's not the case that its antecedent is
+true and its consequent is false. So prove: *}
 
 lemma "(A \<longrightarrow> B) \<longleftrightarrow> \<not> (A \<and> \<not> B)" oops
 
@@ -722,7 +722,7 @@ text {* Two things are notable about this example. The first is that the convent
 slightly different from usual -- the scope of the quantifier is everything within the surrounding 
 brackets. The second is that there has to be a space between the predicate and name or variable,
 to make sure they are different terms (the advantage of this is that terms don't have to be a single
-letter or character, and so you don't have to worry about running out). *}
+letter or character, and so you won't run out). *}
 
 text {* \begin{Exercise} Practice universal elimination by proving: \end{Exercise} *}
 
