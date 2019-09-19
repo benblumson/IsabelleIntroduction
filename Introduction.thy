@@ -5,7 +5,7 @@ begin
 (*>*)
 
 
-text \<open> It is unworthy of excellent men to lose hours like slaves in the labour of calculation which could 
+text \<open> \epigraph{It is unworthy of excellent men to lose hours like slaves in the labour of calculation which could 
 safely be relegated to anyone else if machines were used.}{Liebniz @{cite "smith_source_1959"} p. 181.} \<close>
 
 text \<open> This is an introduction to the Isabelle proof assistant aimed at philosophers and students
@@ -13,6 +13,7 @@ of philosophy.\footnote{I found a very useful introduction to be Nipkow @{cite "
 Another still helpful, though unfortunately dated, introduction is Grechuk @{cite "grechuk_isabelle_2010"}.
 A person wishing to know how Isabelle works might first consult Paulson @{cite "paulson_ml_1996"}.
 For the software itself and comprehensive documentation, see @{url "https://isabelle.in.tum.de/"}.
+Then for the source code of this document see @{url "https://github.com/benblumson/IsabelleIntroduction"}.
 Isabelle might not be the right tool for your project -- for a comparison of alternatives see
 Wiedijk @{cite "wiedijk_seventeen_2006"}.} \<close>
 
@@ -176,6 +177,13 @@ lemma contraction: "(A \<longrightarrow> A \<longrightarrow> B) \<longrightarrow
 proof (rule impI)
   assume "A \<longrightarrow> A \<longrightarrow> B"
   show "A \<longrightarrow> B"
+text \<open> This is an introduction to the Isabelle proof assistant aimed at philosophers and students
+of philosophy.\footnote{The source code for this document  I found a very useful introduction to be Nipkow @{cite "nipkow_tutorial_2011"}.
+Another still helpful, though unfortunately dated, introduction is Grechuk @{cite "grechuk_isabelle_2010"}.
+A person wishing to know how Isabelle works might first consult Paulson @{cite "paulson_ml_1996"}.
+For the software itself and comprehensive documentation, see @{url "https://isabelle.in.tum.de/"}.
+Isabelle might not be the right tool for your project -- for a comparison of alternatives see
+Wiedijk @{cite "wiedijk_seventeen_2006"}.} \<close>
   proof (rule impI)
     assume "A"
     with `A \<longrightarrow> A \<longrightarrow> B` have "A \<longrightarrow> B" by (rule mp)

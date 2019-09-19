@@ -1,9 +1,8 @@
 session "IsabelleIntroduction" = "HOL" +
   options [document = pdf, document_output = "output"]
-  theories [document = false]
+  theories
     (* Foo *)
     (* Bar *)
-  theories
     (* Baz *) Introduction
   document_files
     "root.tex"
