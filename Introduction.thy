@@ -963,6 +963,64 @@ text \<open> \begin{Exercise} Practice introducing definite descriptions by prov
 
 lemma "(\<forall> x. F x \<longleftrightarrow> x = a) \<longrightarrow> (THE x. F x) = a" oops
 
+section \<open> Higher Order Logic  \<close>
+
+subsection \<open> Universal Quantifier  \<close>
+
+
+subsubsection \<open> Universal Elimination \<close>
+
+lemma "(\<forall> X. X a) \<longrightarrow> F a"
+proof
+  assume "\<forall> X. X a"
+  thus "F a" by (rule allE)
+qed
+
+lemma "\<not> (\<forall> X. X a)"
+proof
+  assume "\<forall> X. X a"
+  hence "\<not> F a" by (rule allE)
+  moreover from `\<forall> X. X a` have "F a" by (rule allE)
+  ultimately show "False" by (rule notE)
+qed
+
+subsubsection \<open> Universal Introduction \<close>
+
+lemma "(\<forall> X. X a \<longrightarrow> X a)"
+proof (rule allI)
+  fix F
+  show "F a \<longrightarrow> F a"
+  proof
+    assume "F a"
+    thus "F a".
+  qed
+qed
+
+subsection \<open> Existential Quantifier \<close>
+
+subsubsection \<open> Existential Introduction \<close>
+
+lemma "F a \<longrightarrow> (\<exists> X. X a)"
+proof
+  assume "F a"
+  show "(\<exists> X. X a)" 
+  proof (rule exI)
+    from `F a` show "F a".
+  qed
+qed
+
+subsubsection \<open> Existential Elimination \<close>
+
+lemma "(\<exists> X. X a \<and> X b) \<longrightarrow> (\<exists> X. X a)"
+proof
+  assume "\<exists> X. X a \<and> X b"
+  then obtain F where F: "F a \<and> F b"..
+  show "\<exists> X. X a"
+  proof (rule exI)
+    from F show "F a"..
+  qed
+qed
+
 section \<open> Automation \<close>
 
 text \<open> By now you probably feel more like the slave from Liebniz' quotation than an excellent person.
