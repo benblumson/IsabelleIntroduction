@@ -4,9 +4,9 @@ imports Main
 begin
 (*>*)
 
-section {* Answers *}
+section \<open> Answers \<close>
 
-text {* \begin{Answer}[ref = biconditional] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = biconditional] \end{Answer} \<close>
 
 lemma "(A \<longleftrightarrow> B) \<longleftrightarrow> (B \<longleftrightarrow> A)"
 proof (rule iffI)
@@ -31,7 +31,7 @@ next
   qed
 qed
 
-text {* \begin{Answer}[ref = disjEexercises] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = disjEexercises] \end{Answer}  \<close>
 
 lemma "A \<or> B \<and> C \<longrightarrow> (A \<or> B) \<and> (A \<or> C)"
 proof
@@ -56,7 +56,7 @@ proof
   qed
 qed
 
-text {* \begin{Answer}[ref = explosion] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = explosion] \end{Answer}  \<close>
 
 lemma explosion: "A \<and> \<not> A \<longrightarrow> B"
 proof
@@ -66,7 +66,7 @@ proof
   with `\<not> A` show "B" by (rule notE)
 qed
 
-text {* \begin{Answer}[ref = doublenegationintroduction] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = doublenegationintroduction] \end{Answer}  \<close>
 
 lemma "A \<longrightarrow> \<not> \<not> A"
 proof
@@ -78,7 +78,7 @@ proof
   qed
 qed
 
-text {* \begin{Answer}[ref = dracula] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = dracula] \end{Answer}  \<close>
 
 lemma "(\<forall> x. R x d) \<longrightarrow> (\<forall> z. R d z \<longrightarrow> z = m) \<longrightarrow> d = m"
 proof
@@ -92,7 +92,7 @@ proof
   qed
 qed
 
-text {* \begin{Answer}[ref = conversedrinker] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = conversedrinker] \end{Answer}  \<close>
 
 lemma "\<exists> x. (\<exists> y. F y) \<longrightarrow> F x"
 proof cases
@@ -110,7 +110,7 @@ next
   thus "\<exists> x. (\<exists> y. F y) \<longrightarrow> F x"..
 qed
 
-text {* \begin{Answer}[ref = demorgan] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = demorgan] \end{Answer}  \<close>
 
 lemma not_all_implies_some_not: "\<not> (\<forall> x. F x) \<longrightarrow> (\<exists> x. \<not> F x)"
 proof
@@ -132,7 +132,7 @@ proof
   qed
 qed
 
-text {* \begin{Answer}[ref = drinker] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = drinker] \end{Answer}  \<close>
 
 lemma "\<exists> x. F x \<longrightarrow> (\<forall> x. F x)"
 proof cases
@@ -151,7 +151,7 @@ next
   thus "\<exists> x. F x \<longrightarrow> (\<forall> x. F x)"..
 qed
 
-text {* \begin{Answer}[ref = everythingissomething] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = everythingissomething] \end{Answer}  \<close>
 
 lemma "\<forall> x. \<exists> y. x = y"
 proof
@@ -160,7 +160,7 @@ proof
   thus "\<exists> y. x = y"..
 qed
 
-text {* \begin{Answer}[ref = symmetry] \end{Answer}  *}
+text \<open> \begin{Answer}[ref = symmetry] \end{Answer}  \<close>
 
 lemma "a = b \<longrightarrow> b = a"
 proof
