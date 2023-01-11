@@ -665,7 +665,7 @@ text \<open> How is the proof related to the positive paradox? Can you think of 
 
 text \<open> \begin{Exercise} Prove: \end{Exercise} \<close>
 
-lemma "(A \<longrightarrow> B) \<or> (B \<longrightarrow> A)" oops
+lemma "(A \<longrightarrow> B) \<or> (B \<longrightarrow> C)" oops
 
 text \<open> Think of an example to show it's not obvious that this lemma is true. How is the proof of
 the lemma related to the paradoxes of material implication? \<close>
