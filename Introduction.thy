@@ -967,7 +967,6 @@ section \<open> Higher Order Logic  \<close>
 
 subsection \<open> Universal Quantifier  \<close>
 
-
 subsubsection \<open> Universal Elimination \<close>
 
 lemma "(\<forall> X. X a) \<longrightarrow> F a"
