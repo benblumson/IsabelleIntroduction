@@ -848,7 +848,7 @@ Prove that there is someone such that if anyone drinks, then they do: \end{Exerc
 lemma "\<exists> x. (\<exists> y. F y) \<longrightarrow> F x" oops
 
 text \<open> How is this proof related to the paradoxes of material implication?\footnote{This problem is
-from Smullyan @{cite "smullyan_what_1978"} p. 210-1. It is the converse of exercise \ref{drinker}.}  \<close>
+from Smullyan @{cite "smullyan_what_1978"} p. 210-1. It is the converse of exercise \ref{drinker}.} \<close>
 
 text \<open> \begin{Exercise}[title = {The Drinker Principle}, label = drinker] 
 Prove that there is someone such that if they drink, then everybody drinks: \end{Exercise} \<close>
