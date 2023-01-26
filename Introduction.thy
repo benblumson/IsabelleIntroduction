@@ -806,14 +806,6 @@ she would expect you to show @{term "\<not> F a \<or> F a"} for some \emph{old} 
 have any old name, and so you'd be stuck. Instead, you have to prove @{term "\<not> F a \<or> F a"} first, and
 then apply existential introduction afterwards -- now to an old name. \<close>
 
-text \<open> \begin{Exercise}[title = The Converse Drinkers Principle, label = conversedrinker]
-Prove that there is someone such that if anyone drinks, then they do: \end{Exercise} \<close>
-
-lemma "\<exists> x. (\<exists> y. F y) \<longrightarrow> F x" oops
-
-text \<open> How is this proof related to the paradoxes of material implication?\footnote{This problem is
-from Smullyan @{cite "smullyan_what_1978"} p. 210-1. It is the converse of exercise \ref{drinker}.}  \<close>
-
 text \<open> \begin{Exercise}[label = demorgan] Prove that if not everything is @{term "F"}, something is not @{term "F"}: \end{Exercise} \<close>
 
 lemma not_all_implies_some_not: "\<not> (\<forall> x. F x) \<longrightarrow> (\<exists> x. \<not> F x)" oops
@@ -849,6 +841,14 @@ not the same as the ``old'' name you had in your goal (try it and you'll see wha
 text \<open> \begin{Exercise} Practice existential introduction and elimination by proving: \end{Exercise} \<close>
 
 lemma "(\<exists> x. F x) \<longrightarrow> (\<exists> x. F x \<or> G x)" oops
+
+text \<open> \begin{Exercise}[title = The Converse Drinkers Principle, label = conversedrinker]
+Prove that there is someone such that if anyone drinks, then they do: \end{Exercise} \<close>
+
+lemma "\<exists> x. (\<exists> y. F y) \<longrightarrow> F x" oops
+
+text \<open> How is this proof related to the paradoxes of material implication?\footnote{This problem is
+from Smullyan @{cite "smullyan_what_1978"} p. 210-1. It is the converse of exercise \ref{drinker}.}  \<close>
 
 text \<open> \begin{Exercise}[title = {The Drinker Principle}, label = drinker] 
 Prove that there is someone such that if they drink, then everybody drinks: \end{Exercise} \<close>
