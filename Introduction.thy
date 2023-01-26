@@ -770,7 +770,7 @@ lemma "(\<forall> x. F x \<and> G x) \<longrightarrow> (\<forall> x. F x)" oops
 
 text \<open> \begin{Exercise} Prove that if everyone is at the party, then everyone in the world is at the party: \end{Exercise} \<close> 
 
-lemma "(\<forall> x. F x) \<longrightarrow> (\<forall> x. F x \<longrightarrow> G x)" oops
+lemma "(\<forall> x. F x) \<longrightarrow> (\<forall> x. G x \<longrightarrow> F x)" oops
   
 text \<open> How is this lemma related to the positive paradox?  \<close>
 
