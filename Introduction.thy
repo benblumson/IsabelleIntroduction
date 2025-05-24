@@ -223,7 +223,7 @@ lemma prefixing: "(A \<longrightarrow> B) \<longrightarrow> (C \<longrightarrow>
 
 lemma suffixing: "(A \<longrightarrow> B) \<longrightarrow> (B \<longrightarrow> C) \<longrightarrow> (A \<longrightarrow> C)" oops
 
-text \<open> Would a relevant logician logician find these proofs acceptable? What about the proof of
+text \<open> Would a relevant logician find these proofs acceptable? What about the proof of
 contraction above? \<close>
 
 subsubsection \<open> Biconditional Introduction \<close>
@@ -969,11 +969,18 @@ subsection \<open> Universal Quantifier  \<close>
 
 subsubsection \<open> Universal Elimination \<close>
 
+text \<open> The introduction and elimination rules for higher-order quantifiers work just like those for
+ordinary first-order quantifiers. For example, we can use the universal elimination rule to  prove 
+that if @{term "a"} has every property, then @{term "a"} has @{term "F"}.\<close>
+
 lemma "(\<forall> X. X a) \<longrightarrow> F a"
 proof
   assume "\<forall> X. X a"
   thus "F a" by (rule allE)
 qed
+
+text \<open> It follows that @{term "a"} does not have every property, since if it did, it would satisfy
+ both @{term "\<not> F"} and @{term "F"}, which is a contradiction.  \<close>
 
 lemma "\<not> (\<forall> X. X a)"
 proof
@@ -994,6 +1001,12 @@ proof (rule allI)
     thus "F a".
   qed
 qed
+
+text \<open> \begin{Exercise}[title = Liebniz' Law] Prove Liebniz' Law: \end{Exercise} \<close>
+
+
+lemma "\<forall> x. \<forall> y. x = y \<longleftrightarrow> (\<forall> X. X x \<longleftrightarrow> X y)" oops
+
 
 subsection \<open> Existential Quantifier \<close>
 
