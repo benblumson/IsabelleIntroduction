@@ -169,4 +169,33 @@ proof
   with `a = b` show "b = a" by (rule subst)
 qed
 
+
+text \<open> \begin{Answer}[ref = Liebniz] \end{Answer}  \<close>
+
+
+lemma "\<forall> x. \<forall> y. x = y \<longleftrightarrow> (\<forall> X. X x \<longleftrightarrow> X y)"
+proof 
+  fix x
+  show "\<forall> y. x = y \<longleftrightarrow> (\<forall> X. X x \<longleftrightarrow> X y)"
+  proof
+    fix y
+    show "x = y \<longleftrightarrow> (\<forall> X. X x \<longleftrightarrow> X y)"
+    proof
+      assume "x = y"
+      show "\<forall> X. X x \<longleftrightarrow> X y"
+      proof (rule allI)
+        fix X
+        have "X x \<longleftrightarrow> X x" by (rule iffI)
+        with `x = y` show "X x \<longleftrightarrow> X y" by (rule subst)
+      qed
+    next
+      assume "\<forall> X. X x \<longleftrightarrow> X y"
+      hence "x = x \<longleftrightarrow> x = y" by (rule allE)
+      moreover have "x = x" by (rule refl)
+      ultimately show "x = y" by (rule iffD1)
+    qed
+  qed
+qed
+
+
 (*<*) end (*>*)
